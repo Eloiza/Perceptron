@@ -1,6 +1,12 @@
 from app_perceptron_lib.perceptron import Perceptron
 from app_perceptron_lib.dataset_generator import DatasetGenerator
 
+def activation_function(entry):
+    if(entry > 0):
+        return 1
+    else:  
+        return 0
+
 def run_perceptron(weights, data, labels, learning_rate=1):
     epoch_error = 0
     # Para cada instancia e label
@@ -10,13 +16,7 @@ def run_perceptron(weights, data, labels, learning_rate=1):
         for i in range(len(x)):
             sample_output += weights[i]*x[i]
 
-        #caso valor final positivo label se torna 1
-        if(sample_output > 0):
-            sample_output = 1
-
-        #contrario label se torna 2
-        else:
-            sample_output = 0
+        sample_output = activation_function(sample_output)
     
         #calculando erro da amostra
         error = y - sample_output
