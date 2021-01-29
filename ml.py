@@ -1,18 +1,21 @@
 from sklearn.neural_network import MLPClassifier
 
-# Carrega sua implementacao do perceptron
-# Para verificar a implementacao do algoritmo que executa sua funcao, consulte
-# o arquivo custom_classifiers.py
+#imports para os classificadores
 from custom_classifiers import PerceptronClassifier
-
 from custom_classifiers import plot_binary_2d_dataset
-
 from custom_classifiers import load_binary_iris_dataset
 from custom_classifiers import load_binary_random_dataset
 from custom_classifiers import load_binary_xor_dataset
+
+#manipulacao de dados
 from sklearn.model_selection import train_test_split
 import numpy as np
 import matplotlib.pyplot as plt
+
+#imports para metricas
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import confusion_matrix
 
 if __name__ == "__main__":
     DATASET_LIST = [
@@ -61,7 +64,27 @@ if __name__ == "__main__":
         # Voce pode comentar essa linha para poupar tempo de execucao
         plot_binary_2d_dataset(trainX, testX, trainY, testY, title=plt_title)
 
-        
+        print("Treinando base de dados: ", DATASET_NAME)
 
-    	# ADICIONE AQUI O CODIGO PARA COMPARAR OS CLASSIFICADORES
+        print("Treinando Modelos...")
+        perceptron = PerceptronClassifier().fit(trainX, trainY)
+        mlp = MLPClassifier().fit(trainX, trainY)
+
+        print("Testando Modelos...")
+        mlp_pred   = mlp.predict(testX)
+        percp_pred = perceptron.predict(testX)
+
+        mlp_acc   = accuracy_score(testY, mlp_pred)
+        percp_acc = accuracy_score(testY, percp_pred) 
+        print("Acurácia mlp: %.2f\nAcurácia Perceptron: %.2f\n" %(mlp_acc, percp_acc))
+
+        mlp_f1    = f1_score(testY, mlp_pred)
+        percpt_f1 = f1_score(testY, percp_pred)
+        print("F1 Score mlp: %.2f\nF1 Score Perceptron: %.2f\n" %(mlp_f1, percpt_f1))
+
+        mlp_matrix    = confusion_matrix(testY, mlp_pred)
+        percpt_matrix = confusion_matrix(testY, percp_pred)
+        print("Confusion Matrix MLP", mlp_matrix)
+        print("Confusion Matrix Perceptron", percpt_matrix)
+
 
