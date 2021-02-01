@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.manifold import TSNE
 
-from sklearn.datasets.samples_generator import make_blobs
+# from sklearn.datasets.samples_generator import make_blobs
 
 from sklearn.utils import shuffle
 
