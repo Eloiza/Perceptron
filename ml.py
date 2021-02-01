@@ -1,8 +1,5 @@
-import matplotlib.pyplot as plt  
 from sklearn.neural_network import MLPClassifier
-from sklearn.linear_model import Perceptron
 from sklearn.metrics import plot_confusion_matrix
-from sklearn.metrics import ConfusionMatrixDisplay
 
 #imports para os classificadores
 from custom_classifiers import PerceptronClassifier
@@ -45,36 +42,11 @@ if __name__ == "__main__":
             trainX, testX, trainY, testY = train_test_split(
                 dataX, dataY, test_size=0.25, random_state=42)
 
-            img_ev = np.where(dataY == 1)[0][0]
-            img_od = np.where(dataY == 0)[0][0]
-            img_shape = (int(np.sqrt(dataX.shape[1])),int(np.sqrt(dataX.shape[1])))
-
-            # Plota 2 imagens de digitos par e impar da base MNIST
-            # Voce pode comentar as proximas linhas para poupar tempo de execucao
-            # (ateh plt.show())
-            # _, axes = plt.subplots(1, 2)
-            # axes = np.array(axes).reshape(-1)
-            # axes[0].set_axis_off()
-            # axes[0].imshow(dataX[img_ev].reshape(img_shape), cmap=plt.cm.gray_r, interpolation='nearest')
-            # axes[0].set_title('Exemplo de dígito par')
-            # axes[1].set_axis_off()
-            # axes[1].imshow(dataX[img_od].reshape(img_shape), cmap=plt.cm.gray_r, interpolation='nearest')
-            # axes[1].set_title('Exemplo de dígito ímpar')
-            # plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=-0.1)
-            # plt.show()
-
         print("Train size: {}".format(len(trainX)))
         print("Test size: {}".format(len(testX)))
         print("Features dimension: {}".format(trainX.shape[1]))
 
-        # plt_title = "Training and test set.\n '.' represents training instances and '*' test instances"
-
-        # Cria e plota uma representacao 2D do dataset
-        # Voce pode comentar essa linha para poupar tempo de execucao
-        # plot_binary_2d_dataset(trainX, testX, trainY, testY, title=plt_title)
-
         print("Treinando Modelos...")
-        #meu perceptron 
         perceptron = PerceptronClassifier(learning_rate=0.001, verbose=1, random_state=13, max_iter=300)
         perceptron.fit(trainX, trainY)
 
