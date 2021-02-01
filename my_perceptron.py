@@ -18,11 +18,9 @@ def run_perceptron(weights, data, labels, learning_rate=1):
 
         prediction = activation_function(activation)
 
-        #calculando erro da amostra
-        error = y - prediction
-    
-        #se houver erro - atualiza pesos da rede
-        if(error > 0):
+        #se houver erro na classificação - atualiza pesos da rede
+        if(prediction != y):
+            error = y - prediction
             epoch_error += 1
             for i in range(len(weights)):
                 weights[i] = weights[i] + (learning_rate*error*x[i])

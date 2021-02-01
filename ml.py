@@ -1,4 +1,5 @@
 from sklearn.neural_network import MLPClassifier
+from sklearn.linear_model import Perceptron
 
 #imports para os classificadores
 from custom_classifiers import PerceptronClassifier
@@ -69,29 +70,44 @@ if __name__ == "__main__":
         # plot_binary_2d_dataset(trainX, testX, trainY, testY, title=plt_title)
 
         print("Treinando Modelos...")
+        #meu perceptron 
         perceptron = PerceptronClassifier(learning_rate=0.001, verbose=1, random_state=13, max_iter=300)
         perceptron.fit(trainX, trainY)
 
         mlp = MLPClassifier(random_state=1, max_iter=100).fit(trainX, trainY)
 
+        #perceptron do scikit-learn
+        perceptron_sk = Perceptron(random_state=13, max_iter=300).fit(trainX, trainY)
+
         print("Testando Modelos...")
         mlp_pred   = mlp.predict(testX)
         percp_pred = perceptron.predict(testX)
+        percp_pred_sk = perceptron_sk.predict(testX)
 
         mlp_acc   = accuracy_score(testY, mlp_pred)
         percp_acc = accuracy_score(testY, percp_pred) 
+        percp_acc_sk = accuracy_score(testY, percp_pred_sk) 
 
         mlp_f1    = f1_score(testY, mlp_pred)
         percpt_f1 = f1_score(testY, percp_pred)
+        percpt_f1_sk = f1_score(testY, percp_pred_sk)
 
         mlp_matrix    = confusion_matrix(testY, mlp_pred)
         percpt_matrix = confusion_matrix(testY, percp_pred)
+        percpt_matrix_sk = confusion_matrix(testY, percp_pred_sk)
+
 
         print("==========Perceptron==========")
         print("Acurácia: %.2f" %(percp_acc*100))
         print("F1 Score: %.2f" %(percpt_f1*100))
         print("------Matriz de Confusão------")
         print_mc(percpt_matrix)
+
+        print("=========Perceptron SK=========")
+        print("Acurácia: %.2f" %(percp_acc_sk*100))
+        print("F1 Score: %.2f" %(percpt_f1_sk*100))
+        print("------Matriz de Confusão------")
+        print_mc(percpt_matrix_sk)
 
 
         print("==============MLP=============")
