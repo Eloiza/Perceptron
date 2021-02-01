@@ -62,10 +62,14 @@ class PerceptronClassifier():
             if epoch_error < best_error:
                 best_weights = weights
                 best_error = epoch_error
+
                 if epoch_error == 0:
                     if self.verbose >= 1:
                         print("Error 0 at epoch {}. Exiting training.".format(epoch))
                     break
+            if(not epoch % 10):
+                print("Error %i at epoch %i" %(epoch_error, epoch))
+                
         self.weights = weights
         self.best_weights = best_weights
         

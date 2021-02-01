@@ -69,7 +69,7 @@ if __name__ == "__main__":
         # plot_binary_2d_dataset(trainX, testX, trainY, testY, title=plt_title)
 
         print("Treinando Modelos...")
-        perceptron = PerceptronClassifier(random_state=1, max_iter=100)
+        perceptron = PerceptronClassifier(learning_rate=0.001, verbose=1, random_state=13, max_iter=300)
         perceptron.fit(trainX, trainY)
 
         mlp = MLPClassifier(random_state=1, max_iter=100).fit(trainX, trainY)

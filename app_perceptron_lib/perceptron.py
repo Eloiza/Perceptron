@@ -32,6 +32,7 @@ class Perceptron:
                 best_error = epoch_error
                 if epoch_error == 0:
                     break
+
         self.best_weights = best_weights
         results =  best_weights, best_epoch, best_error
         GLib.idle_add(callback, results)
